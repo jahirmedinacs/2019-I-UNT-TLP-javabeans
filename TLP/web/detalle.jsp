@@ -112,7 +112,7 @@ ResultSet rs;
         <div class="row valign-wrapper">
           <div class="col s2"></div>
           <div class="col s8">
-            <a class="waves-effect waves-light btn-large" target="_blank" href="modificar.jsp?nuevo=1">
+            <a class="waves-effect waves-light btn-large" target="_blank" href="modificar.jsp?nuevo=1&ref_curso_id=<%=request.getParameter("curso_select")%>&ref_alumno_id=<%=request.getParameter("alumno_cod")%>">
               <div class="center-align">
                 <h6>Registrar<i class="medium material-icons">edit school</i></h6>
               </div>

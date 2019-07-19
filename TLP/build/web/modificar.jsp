@@ -90,14 +90,39 @@ ResultSet rs;
     String ref_curso_id = "";
     String ref_alumno_id = "";
 
+    String state_ref_primerarevision = "unchecked";
+    String state_ref_segundaversion = "unchecked";
+    String state_ref_parcial = "unchecked";
+    String state_ref_final = "unchecked";
+    String state_ref_promocional = "unchecked";
 
     if(request.getParameter("nuevo").equals("0")){
         ref_fecha= request.getParameter("ref_fecha");
         ref_primerarevision= request.getParameter("ref_primerarevision");
+        if(ref_primerarevision.equals("1")){
+            state_ref_primerarevision = "checked";
+            ref_primerarevision = "0";
+        }
         ref_segundaversion= request.getParameter("ref_segundaversion");
+        if(ref_segundaversion.equals("1")){
+            state_ref_segundaversion = "checked";
+            ref_segundaversion = "0";
+        }
         ref_parcial= request.getParameter("ref_parcial");
+        if(ref_parcial.equals("1")){
+            state_ref_parcial = "checked";
+            ref_parcial = "0";
+        }
         ref_final= request.getParameter("ref_final");
+        if(ref_final.equals("1")){
+            state_ref_final = "checked";
+            ref_final = "0";
+        }
         ref_promocional= request.getParameter("ref_promocional");
+        if(ref_promocional.equals("1")){
+            state_ref_promocional = "checked";
+            ref_promocional = "0";
+        }
         ref_notas= request.getParameter("ref_notas");
         ref_detalle= request.getParameter("ref_detalle");
         ref_observacion= request.getParameter("ref_observacion");
@@ -108,7 +133,7 @@ ResultSet rs;
     }
     %>
 
-<form class="box" action="" method="post">
+<form class="box" action="#" method="post">
     <div class="container pan alling-wrapper z-depth-3 grey lighten-5">
         <div class="row"></div>
         <div class="divider"></div>
@@ -116,26 +141,26 @@ ResultSet rs;
         <div class="row">
             <div class="col s4">
                 <label class="black-text center-align">Nota</label>
-                <input class="black-text center-align" type="number" name="mod_nota" value="<%=ref_notas%>">
+                <input class="black-text center-align" type="number" name="mod_nota" value="<%=ref_notas%>" required>
             </div>
         </div>
         <div class="row">
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">Fecha de Registro</label>
-                <input class="black-text" type="date" name="mod_fecha" value="<%=ref_fecha%>">
+                <input class="black-text" type="date" name="mod_fecha" value="<%=ref_fecha%>" required>
             </div>
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">
-                    <input class="black-text" type="checkbox" class="filled-in" checked="checked" value="<%=ref_primerarevision%>" name="mod_primerarevision"/>
+                    <input class="black-text" type="checkbox" class="filled-in" <%=state_ref_primerarevision%> value="<%=ref_primerarevision%>" name="mod_primerarevision"/ >
                     <span>Primera Revision</span>
                 </label>
             </div>
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">
-                    <input class="black-text" type="checkbox" class="filled-in" checked="checked" value="<%=ref_segundaversion%>" name="mod_segundaversion"/>
+                    <input class="black-text" type="checkbox" class="filled-in" <%=state_ref_segundaversion%> value="<%=ref_segundaversion%>" name="mod_segundaversion"/ >
                     <span>Segunda Revision</span>
                 </label>
             </div>
@@ -144,21 +169,21 @@ ResultSet rs;
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">
-                    <input class="black-text" type="checkbox" class="filled-in" checked="checked" value="<%=ref_parcial%>" name="mod_parcial"/>
+                    <input class="black-text" type="checkbox" class="filled-in" <%=state_ref_parcial%> value="<%=ref_parcial%>" name="mod_parcial"/ >
                     <span>Examen Parcial</span>
                 </label>
             </div>
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">
-                    <input class="black-text" type="checkbox" class="filled-in" checked="checked" value="<%=ref_final%>" name="mod_final"/>
+                    <input class="black-text" type="checkbox" class="filled-in" <%=state_ref_final%> value="<%=ref_final%>" name="mod_final"/ >
                     <span>Examen Final</span>
                 </label>
             </div>
             <div class="col s1"></div>
             <div class="col s3">
                 <label class="black-text">
-                    <input class="black-text" type="checkbox" class="filled-in" checked="checked" value="<%=ref_promocional%>" name="mod_promocional"/>
+                    <input class="black-text" type="checkbox" class="filled-in" <%=state_ref_promocional%> value="<%=ref_promocional%>" name="mod_promocional"/ >
                     <span>Nota Promocional</span>
                 </label>
             </div>
@@ -166,7 +191,7 @@ ResultSet rs;
         <div class="row">
             <div class="col s2"></div>
             <div class="col s8">
-                <input class="black-text" type="text" name="mod_detalle" value="<%=ref_detalle%>"/>
+                <input class="black-text" type="text" name="mod_detalle" value="<%=ref_detalle%>"/ required>
                 <span class="black-text">Detalle</span>
             </div>
             <div class="col s2"></div>
@@ -174,7 +199,7 @@ ResultSet rs;
         <div class="row">
                 <div class="col s2"></div>
                 <div class="col s8">
-                    <input class="black-text" type="text" name="mod_observacion" value="<%=ref_observacion%>"/>
+                    <input class="black-text" type="text" name="mod_observacion" value="<%=ref_observacion%>"/ required>
                     <span class="black-text">Observacion</span>
                 </div>
                 <div class="col s2"></div>
@@ -189,7 +214,7 @@ ResultSet rs;
             </div>
             <div class="col s2"></div>
             <div class="col s3">
-                <input type="submit" name="submit" href="#" class="btn green hoverable" value="Actualizar">
+                <input type="submit" name="submit" href="#" class="btn green hoverable" value="Actualizar" required>
                 </div>
             <div class="col s2"></div>
         </div>
@@ -218,7 +243,51 @@ if (request.getParameter("submit") == null){
     <%
 } 
 else {
-    %><%=ref_notas%><%
+
+    if (request.getParameter("nuevo").equals("1")){
+        
+        consulta = "select max(nota.id) as 'rpta' from nota inner join registroGeneral on nota.id=registroGeneral.nota_id";
+        ps = conexion.prepareStatement(consulta); 
+        rs = ps.executeQuery();
+        while(rs.next()){
+            Integer __temp = Integer.parseInt(rs.getString("rpta"));
+            __temp += 1;
+            ref_nota_id = __temp.toString();
+        }
+    }
+    else{
+    }
+
+    String mod_fecha = request.getParameter("mod_fecha").toString();
+    String mod_primerarevision = request.getParameter("mod_primerarevision");
+    String mod_segundaversion = request.getParameter("mod_segundaversion");
+    String mod_parcial = request.getParameter("mod_parcial");
+    String mod_final = request.getParameter("mod_final");
+    String mod_promocional = request.getParameter("mod_promocional");
+    String mod_nota = request.getParameter("mod_nota").toString();
+    String mod_detalle = request.getParameter("mod_detalle");
+    String mod_observacion = request.getParameter("mod_observacion");
+    String mod_nota_id = ref_nota_id;
+    String mod_ref_curso_id = request.getParameter("ref_curso_id");
+    String mod_ref_alumno_id = request.getParameter("ref_alumno_id");
+
+    %>
+    <ul>
+    <li>fecha : <%=mod_fecha%></li>
+    <li>primerarevision : <%=mod_primerarevision%></li>
+    <li>segundaversion : <%=mod_segundaversion%></li>
+    <li>parcial : <%=mod_parcial%></li>
+    <li>final : <%=mod_final%></li>
+    <li>promocional : <%=mod_promocional%></li>
+    <li>notas : <%=mod_nota%></li>
+    <li>detalle : <%=mod_detalle%></li>
+    <li>observacion : <%=mod_observacion%></li>
+    <li>nota_id : <%=mod_nota_id%></li>
+    <li>curso_id : <%=mod_ref_curso_id%></li>
+    <li>alumno_id : <%=mod_ref_alumno_id%></li>
+    </ul>
+    <%
+
 }
 %>  
         </div>
