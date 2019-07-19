@@ -31,6 +31,17 @@ CREATE TABLE matricula (
   CONSTRAINT matricula_curso   FOREIGN KEY (curso_id)   REFERENCES curso (id),
   CONSTRAINT matricula_usuario FOREIGN KEY (usuario_id) REFERENCES usuario (id)
 );
+
+CREATE TABLE profesorea (
+  curso_id INT(11) NOT NULL,
+  usuario_id INT(11) NOT NULL,
+  fecha DATE NULL,
+  vence DATE NULL,
+  activo boolean NULL,
+  PRIMARY KEY (curso_id, usuario_id),
+  CONSTRAINT profesorea_curso   FOREIGN KEY (curso_id)   REFERENCES curso (id),
+  CONSTRAINT profesorea_usuario FOREIGN KEY (usuario_id) REFERENCES usuario (id)
+);
   
 CREATE TABLE nota(
   id INT(11) NOT NULL AUTO_INCREMENT,

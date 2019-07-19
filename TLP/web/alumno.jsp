@@ -102,14 +102,14 @@ ResultSet rs;
   <!-- HEADER START -->
   </br>
   <center>
-  <div class="container card-panel center-align hoverable">
+  <div class="container card-panel center-align">
     <!-- DIVISION-->
     <div class="divider"></div>
     <div class="row"></div>
     <!-- DIVISION-->
 
     <div class="row valign-wrapper">
-      <div class="col s6">
+      <%-- <div class="col s6">
         <div class="row valign-wrapper">
           <div class="col s8">
             <a class="waves-effect waves-light btn-large" href="index.html">
@@ -126,9 +126,9 @@ ResultSet rs;
             </a>
           </div>
         </div>
-      </div>
+      </div> --%>
       <div class="col s2 offset-s2">
-        <img class="materialboxed circle responsive-img" data-caption="Foto de Perfil" width="100" src="assets/temp/user/estudiante.png">
+        <img class="materialboxed responsive-img" data-caption="Foto de Perfil" width="100" src="assets/temp/user/estudiante.png">
       </div>
       <div class="col s4">
          <div class="row">
@@ -195,12 +195,12 @@ ResultSet rs;
           report_expulsado = rs.getString("expulsado");
 
         %>
-          <li class="active"><a href="alumno.jsp?curso_select=<%=rs_id%>" class="light-green darken-2"><%=rs_nombre%></a></li>
+          <li class="active hoverable"><a href="alumno.jsp?curso_select=<%=rs_id%>" class="light-green darken-2"><%=rs_nombre%></a></li>
         <%
         }
         else{
         %>
-          <li class="waves-effect"><a href="alumno.jsp?curso_select=<%=rs_id%>"><%=rs_nombre%></a></li>
+          <li class="waves-effect hoverable"><a href="alumno.jsp?curso_select=<%=rs_id%>"><%=rs_nombre%></a></li>
         <%
         }
 
@@ -234,7 +234,7 @@ ResultSet rs;
     %>
 
     </br>
-    <div class="container center-align hoverable">
+    <div class="container center-align">
       <div class="row"></div>
       <div class="row">
         <div class="col s1"></div>
@@ -249,15 +249,15 @@ ResultSet rs;
           <table class="highlight">
             <thead>
               <tr>
-                  <th>Fecha</th>
-                  <th>Nota</th>
-                  <th>1er Revision</th>
-                  <th>2da Revision</th>
-                  <th>Examen Parcial</th>
-                  <th>Examen Final</th>
-                  <th>Nota Promocional</th>
-                  <th>Detalle</th>
-                  <th>Observacion</th>
+                  <th class="center-align">Fecha</th>
+                  <th class="center-align">1er Revision</th>
+                  <th class="center-align">2da Revision</th>
+                  <th class="center-align">Examen Parcial</th>
+                  <th class="center-align">Examen Final</th>
+                  <th class="center-align">Nota Promocional</th>
+                  <th class="center-align">Nota</th>
+                  <th class="center-align">Detalle</th>
+                  <th class="center-align">Observacion</th>
               </tr>
             </thead>
   
@@ -280,37 +280,41 @@ ResultSet rs;
               table_notas = rs.getString("notas");
               table_primerarevision = rs.getString("primerarevision");
               if (table_primerarevision.equals("1")){
-                table_primerarevision = "Si";
-              } else {table_primerarevision = "No";}
+                table_primerarevision = "<i class=\"small material-icons circle light-green darken-1\">check_circle</i>";
+              } else {table_primerarevision = "<i class=\"small material-icons circle grey accent-2\">remove_circle</i>";}
               table_segundaversion = rs.getString("segundaversion");
               if (table_segundaversion.equals("1")){
-                table_segundaversion = "Si";
-              } else {table_segundaversion = "No";}
+                table_segundaversion = "<i class=\"small material-icons circle light-green darken-1\">check_circle</i>";
+              } else {table_segundaversion = "<i class=\"small material-icons circle grey accent-2\">remove_circle</i>";}
               table_parcial = rs.getString("parcial");
               if (table_parcial.equals("1")){
-                table_parcial = "Si";
-              } else {table_parcial = "No";}
+                table_parcial = "<i class=\"small material-icons circle light-green darken-1\">check_circle</i>";
+              } else {table_parcial = "<i class=\"small material-icons circle grey accent-2\">remove_circle</i>";}
               table_final = rs.getString("final");
               if (table_final.equals("1")){
-                table_final = "Si";
-              } else {table_final = "No";}
+                table_final = "<i class=\"small material-icons circle light-green darken-1\">check_circle</i>";
+              } else {table_final = "<i class=\"small material-icons circle grey accent-2\">remove_circle</i>";}
               table_promocional = rs.getString("promocional");
               if (table_promocional.equals("1")){
-                table_promocional = "Si";
-              } else {table_promocional = "No";}
+                table_promocional = "<i class=\"small material-icons circle light-green darken-1\">check_circle</i>";
+              } else {table_promocional = "<i class=\"small material-icons circle grey accent-2\">remove_circle</i>";}
               table_detalle = rs.getString("detalle");
               table_observacion = rs.getString("observacion");
               %>
               <tr>
-                <td><%=table_fecha%></td>
-                <td><%=table_notas%></td>
-                <td><%=table_primerarevision%></td>
-                <td><%=table_segundaversion%></td>
-                <td><%=table_parcial%></td>
-                <td><%=table_final%></td>
-                <td><%=table_promocional%></td>
-                <td><%=table_detalle%></td>
-                <td><%=table_observacion%></td>
+                <td class="left-align"><%=table_fecha%></td>
+                <td class="center-align"><%=table_primerarevision%></td>
+                <td class="center-align"><%=table_segundaversion%></td>
+                <td class="center-align"><%=table_parcial%></td>
+                <td class="center-align"><%=table_final%></td>
+                <td class="center-align"><%=table_promocional%></td>
+                <td>
+                  <center>
+                    <h5><b><%=table_notas%></b></h5>
+                  </center>
+                </td>
+                <td class="right-align"><%=table_detalle%></td>
+                <td class="right-align"><%=table_observacion%></td>
               </tr>
               <%
             }
