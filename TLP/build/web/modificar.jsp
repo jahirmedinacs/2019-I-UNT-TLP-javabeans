@@ -271,24 +271,116 @@ else {
     String mod_ref_curso_id = request.getParameter("ref_curso_id");
     String mod_ref_alumno_id = request.getParameter("ref_alumno_id");
 
+    if (mod_primerarevision == null){ mod_primerarevision = "0";}
+    else{ mod_primerarevision = "1"; }
+    
+    if (mod_segundaversion == null){ mod_segundaversion = "0";}
+    else{ mod_segundaversion = "1"; }
+    
+    if (mod_parcial == null){ mod_parcial = "0";}
+    else{ mod_parcial = "1"; }
+    
+    if (mod_final == null){ mod_final = "0";}
+    else{ mod_final = "1"; }
+    
+    if (mod_promocional == null){ mod_promocional = "0";}
+    
+    else{ mod_promocional = "1"; }
+    
+    /////////////////////////////////////////////
+    //
+    //          REFERENCIA DE VARIABLES
+    //
+    /////////////////////////////////////////////
+    //
+    //      fecha | mod_fecha
+    //      primerarevision | mod_primerarevision
+    //      segundaversion | mod_segundaversion
+    //      parcial | mod_parcial
+    //      final | mod_final
+    //      promocional | mod_promocional
+    //      notas | mod_nota
+    //      detalle | mod_detalle
+    //      observacion | mod_observacion
+    //      nota_id | mod_nota_id
+    //      curso_id | mod_ref_curso_id
+    //      alumno_id | mod_ref_alumno_id
+    //
+    ///////////////////////////////////////////
+    Class.forName(driver);
+    Connection conn;
+    conn = DriverManager.getConnection(url,userid,password);
+    conn.setAutoCommit(false);
+    session.setAttribute("conn", conn);
+    PreparedStatement ps1, ps2, ps3, ps4;
+
+    try {
+    
+    %><ul class="left-align"><%
+    ///////////////////
+    // 1
+    consulta = "REPLACE INTO nota (id, notas, primerarevision, ";
+    consulta += "segundaversion, parcial, final, promocional) ";
+    consulta += "VALUES (" + mod_nota_id; 
+    consulta += ", " + mod_nota; 
+    consulta += ", " + mod_primerarevision; 
+    consulta += ", " + mod_segundaversion; 
+    consulta += ", " + mod_parcial; 
+    consulta += ", " + mod_final; 
+    consulta += ", " + mod_promocional; 
+    consulta += ");";
+    %><li><%=consulta%></li><%
+
+    ps1 = conn.prepareStatement(consulta); 
+
+    ///////////////////
+    // 2
+    consulta = "REPLACE INTO registro(curso_id, nota_id, fecha, observacion) VALUES ";
+    consulta += "("+mod_ref_curso_id+","+mod_nota_id+", '"+mod_fecha+"', '"+mod_detalle+"');";
+    %><li><%=consulta%></li><%
+
+    ps2 = conn.prepareStatement(consulta); 
+    ////////////////////
+    // 3
+    consulta = "REPLACE INTO reporte(nota_id, usuario_id, observacion, fechaconsulta) VALUES ";
+    consulta += "("+mod_nota_id+","+mod_ref_alumno_id+", '"+mod_observacion+"', '"+mod_fecha+"');";
+    %><li><%=consulta%></li><%
+
+    ps3 = conn.prepareStatement(consulta); 
+    ////////////////////
+    // 4
+    consulta = "REPLACE INTO registroGeneral(id, curso_id, nota_id, usuario_id) VALUES ";
+    consulta += "("+mod_nota_id+","+mod_ref_curso_id+","+mod_nota_id+","+mod_ref_alumno_id+");";
+    %><li><%=consulta%></li><%
+
+    ps4 = conn.prepareStatement(consulta); 
+    ////////////////////
+    
+    %></ul><%
+
+    ps1.executeUpdate();
+    ps2.executeUpdate();
+    ps3.executeUpdate();
+    ps4.executeUpdate();
+    conn.commit();
+
     %>
-    <ul>
-    <li>fecha : <%=mod_fecha%></li>
-    <li>primerarevision : <%=mod_primerarevision%></li>
-    <li>segundaversion : <%=mod_segundaversion%></li>
-    <li>parcial : <%=mod_parcial%></li>
-    <li>final : <%=mod_final%></li>
-    <li>promocional : <%=mod_promocional%></li>
-    <li>notas : <%=mod_nota%></li>
-    <li>detalle : <%=mod_detalle%></li>
-    <li>observacion : <%=mod_observacion%></li>
-    <li>nota_id : <%=mod_nota_id%></li>
-    <li>curso_id : <%=mod_ref_curso_id%></li>
-    <li>alumno_id : <%=mod_ref_alumno_id%></li>
-    </ul>
+    <div class="card-panel green darken-4 white-text">
+        Exito al Actualizar los Datos, Puede Cerrar esta ventana
+    </div>
     <%
 
-}
+    } catch (Exception e) {
+        conn.rollback();
+    %>
+    <div class="card-panel red darken-4 white-text">
+        Error al Actualizar los Datos, Contacte a su Administrador
+        </br>
+        <%=e%>
+    </div>
+    <%
+    }
+}   
 %>  
         </div>
         <div class="col s2"></div>
