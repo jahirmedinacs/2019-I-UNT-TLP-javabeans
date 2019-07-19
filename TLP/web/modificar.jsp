@@ -319,16 +319,29 @@ else {
     %><ul class="left-align"><%
     ///////////////////
     // 1
-    consulta = "REPLACE INTO nota (id, notas, primerarevision, ";
-    consulta += "segundaversion, parcial, final, promocional) ";
-    consulta += "VALUES (" + mod_nota_id; 
-    consulta += ", " + mod_nota; 
-    consulta += ", " + mod_primerarevision; 
-    consulta += ", " + mod_segundaversion; 
-    consulta += ", " + mod_parcial; 
-    consulta += ", " + mod_final; 
-    consulta += ", " + mod_promocional; 
-    consulta += ");";
+
+    if (request.getParameter("nuevo").equals("1")){
+        consulta = "REPLACE INTO nota (id, notas, primerarevision, ";
+        consulta += "segundaversion, parcial, final, promocional) ";
+        consulta += "VALUES (" + mod_nota_id; 
+        consulta += ", " + mod_nota; 
+        consulta += ", " + mod_primerarevision; 
+        consulta += ", " + mod_segundaversion; 
+        consulta += ", " + mod_parcial; 
+        consulta += ", " + mod_final; 
+        consulta += ", " + mod_promocional; 
+        consulta += ");";
+    } else {
+        consulta = "UPDATE nota SET notas=";
+        consulta += mod_nota + ", primerarevision=";
+        consulta += mod_primerarevision + ", segundaversion=";
+        consulta += mod_segundaversion + ", parcial=";
+        consulta += mod_parcial + ", final=";
+        consulta += mod_final + ", promocional=";
+        consulta += mod_promocional + " WHERE id=";
+        consulta += mod_nota_id + ";";
+    }
+    
     %><li><%=consulta%></li><%
 
     ps1 = conn.prepareStatement(consulta); 
